@@ -13,9 +13,13 @@ public class WordHunter {
     public static void main(String[] args) {
         Queries q = new Queries();
         //q.cacaPalavra("");
-
-        Animal animal = new Animal("Gato", "Jhonny", 35.0, "Laranja", 3, 35.0, "Gato de rua", "M");
-        q.inserirAnimal(animal);
+        //Novo objeto criado para inserir no banco de dados
+        //Animal animal = new Animal("Gato", "Imotep", 35.0, "Preto", 3, 35.0, "Gato Egipcio", "M");
+        //q.inserirAnimal(animal);//Insere animal no banco de dados
+        
+        //Animal para ser atualizado no banco de dados
+        Animal animal = new Animal(4, "Gato", "Imotep", 35.0, "Preto", 3, 35.0, "Gato Egipcio", "M");
+        q.atualizarAnimal(animal);//Atualiza animal no banco de dados
         System.out.println(animal);
     }
 }

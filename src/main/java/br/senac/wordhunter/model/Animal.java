@@ -15,7 +15,7 @@ public class Animal {
     //Construtor de instancia vazia
     public Animal() { }
 
-    //Construtor completo (Leitura do dado que vem do banco de dados)
+    //Construtor completo (Leitura do dado que vem do banco de dados e atualização do animal)
     public Animal(Integer id_animal, String tipo_animal, String nome_animal, double peso_animal, String cor_animal, int numero_patas_animal, double altura_animal, String raca_animal, String sexo_animal) {
         this.id_animal = id_animal;
         this.tipo_animal = tipo_animal;
@@ -28,7 +28,7 @@ public class Animal {
         this.sexo_animal = sexo_animal;
     }
 
-    //Construtor incompleto (Criação de linha no banco de dados)
+    //Construtor incompleto (Criação de linha/registro no banco de dados)
     public Animal(String tipo_animal, String nome_animal, double peso_animal, String cor_animal, int numero_patas_animal, double altura_animal, String raca_animal, String sexo_animal) {
         this(null,
             tipo_animal,

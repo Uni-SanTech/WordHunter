@@ -68,7 +68,8 @@ public class Queries extends QueriesImpl {
                     listOfAnimal.add(animal);
                 }
                 System.out.println("Total de animais = " + listOfAnimal.size());
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -81,13 +82,14 @@ public class Queries extends QueriesImpl {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            throw new RuntimeException("O drive do MySQL não está instalado", e); 
+            throw new RuntimeException("O drive do MySQL não está instalado", e);
         }
 
         String QUERY = "INSERT INTO animais (tipo_animal, nome_animal, peso_animal, cor_animal, numero_patas_animal, altura_animal, raca_animal, sexo_animal) VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
         System.out.println(QUERY);
 
         try (Connection conn = DriverManager.getConnection(URL, USER, PASS); PreparedStatement ps = conn.prepareStatement(QUERY, Statement.RETURN_GENERATED_KEYS)) {
+
             ps.setString(1, animal.getTipo_animal());
             ps.setString(2, animal.getNome_animal());
             ps.setDouble(3, animal.getPeso_animal());
@@ -96,22 +98,62 @@ public class Queries extends QueriesImpl {
             ps.setDouble(6, animal.getAltura_animal());
             ps.setString(7, animal.getRaca_animal());
             ps.setString(8, animal.getSexo_animal());
-            
+
             int linhasAfetadas = ps.executeUpdate();
-            if (linhasAfetadas == 0) throw new SQLException("Insert falhou! nenhuma linha foi adicionada ou alterada!");
-            
+            if (linhasAfetadas == 0) {
+                throw new SQLException("Insert falhou! nenhuma linha foi adicionada ou alterada!");
+            }
+
             //BÔNUS: Como saber se o INSERT FUNCIONOU?
             try (ResultSet resultKeys = ps.getGeneratedKeys()) {
                 if (resultKeys.next()) {
                     int idGerado = resultKeys.getInt(1);
                     int idAnimal = idGerado;
                     System.out.println("Id Gerado " + idAnimal);
-                } else throw new SQLException("Insert funcionou, mas nenhum ID foi retornado!");
+                } else {
+                    throw new SQLException("Insert funcionou, mas nenhum ID foi retornado!");
+                }
             } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    //TODO: Construir a estrutura do método para atualizar um animal específico
+    //30 minutos (Entrega: 20H15) 
+    @Override
+    public void atualizarAnimal(Animal animal) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException("O drive do MySQL não está instalado", e);
+        }
+
+        String QUERY = "UPDATE animais SET tipo_animal = ?, nome_animal = ?, peso_animal = ?, cor_animal = ?, numero_patas_animal = ?, altura_animal = ?, raca_animal = ?, sexo_animal = ? WHERE id_animal = ?;";
+        System.out.println(QUERY);
+
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASS); PreparedStatement ps = conn.prepareStatement(QUERY, Statement.RETURN_GENERATED_KEYS)) {
+
+            ps.setString(1, animal.getTipo_animal());
+            ps.setString(2, animal.getNome_animal());
+            ps.setDouble(3, animal.getPeso_animal());
+            ps.setString(4, animal.getCor_animal());
+            ps.setInt(5, animal.getNumero_patas_animal());
+            ps.setDouble(6, animal.getAltura_animal());
+            ps.setString(7, animal.getRaca_animal());
+            ps.setString(8, animal.getSexo_animal());
+            ps.setInt(9, animal.getId_animal());
+
+            if (ps.executeUpdate() == 0) {
+                throw new SQLException("Atualização falhou! nenhuma linha foi alterada!");
             }
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
+    //TODO: Construir o método para apagar animal
 }
