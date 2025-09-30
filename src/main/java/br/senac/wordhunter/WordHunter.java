@@ -3,7 +3,6 @@ package br.senac.wordhunter;
 import br.senac.wordhunter.bancodados.Queries;
 import br.senac.wordhunter.model.Animal;
 
-
 /**
  * GroupId: br.senac Project Name: WordHunter
  *
@@ -13,14 +12,10 @@ public class WordHunter {
 
     public static void main(String[] args) {
         Queries q = new Queries();
-        q.cacaPalavra("");
-        
-        Animal animal = new Animal();
-        animal.setCor_animal("Black");
-        
-        String classe = animal.toString();
+        //q.cacaPalavra("");
 
-        System.out.println(classe);
-
+        Animal animal = new Animal("Gato", "Jhonny", 35.0, "Laranja", 3, 35.0, "Gato de rua", "M");
+        q.inserirAnimal(animal);
+        System.out.println(animal);
     }
 }

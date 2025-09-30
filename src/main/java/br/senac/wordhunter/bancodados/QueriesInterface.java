@@ -13,6 +13,7 @@ public interface QueriesInterface {
      */
     void cacaPalavra(String palavra);
     
+    //TODO: Construir (na classe Queries) o método para inserir o animal no banco de dados
     void inserirAnimal(Animal animal);
     
     void buscarAnimal(Animal animal);

@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class Queries extends QueriesImpl {
     public void cacaPalavra(String palavra) {
         List<Animal> listOfAnimal = new ArrayList<>();
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");//Verifica a existêncian do driver do MySQL
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             throw new RuntimeException("O drive do MySQL não está instalado", e);
@@ -51,7 +53,7 @@ public class Queries extends QueriesImpl {
                     double altura_animal = rs.getDouble("altura_animal");
                     String raca_animal = rs.getString("raca_animal");
                     String sexo_animal = rs.getString("sexo_animal");
-                    
+
                     animal.setId_animal(id_animal);
                     animal.setTipo_animal(tipo_animal);
                     animal.setNome_animal(nome_animal);
@@ -61,11 +63,50 @@ public class Queries extends QueriesImpl {
                     animal.setAltura_animal(altura_animal);
                     animal.setRaca_animal(raca_animal);
                     animal.setSexo_animal(sexo_animal);
-                    
+
                     //TODO: Continuar a buscar e armazenar os resultados do banco no objeto Animal
                     listOfAnimal.add(animal);
                 }
                 System.out.println("Total de animais = " + listOfAnimal.size());
+            } catch (Exception e) { }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void inserirAnimal(Animal animal) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException("O drive do MySQL não está instalado", e); 
+        }
+
+        String QUERY = "INSERT INTO animais (tipo_animal, nome_animal, peso_animal, cor_animal, numero_patas_animal, altura_animal, raca_animal, sexo_animal) VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
+        System.out.println(QUERY);
+
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASS); PreparedStatement ps = conn.prepareStatement(QUERY, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, animal.getTipo_animal());
+            ps.setString(2, animal.getNome_animal());
+            ps.setDouble(3, animal.getPeso_animal());
+            ps.setString(4, animal.getCor_animal());
+            ps.setInt(5, animal.getNumero_patas_animal());
+            ps.setDouble(6, animal.getAltura_animal());
+            ps.setString(7, animal.getRaca_animal());
+            ps.setString(8, animal.getSexo_animal());
+            
+            int linhasAfetadas = ps.executeUpdate();
+            if (linhasAfetadas == 0) throw new SQLException("Insert falhou! nenhuma linha foi adicionada ou alterada!");
+            
+            //BÔNUS: Como saber se o INSERT FUNCIONOU?
+            try (ResultSet resultKeys = ps.getGeneratedKeys()) {
+                if (resultKeys.next()) {
+                    int idGerado = resultKeys.getInt(1);
+                    int idAnimal = idGerado;
+                    System.out.println("Id Gerado " + idAnimal);
+                } else throw new SQLException("Insert funcionou, mas nenhum ID foi retornado!");
             } catch (Exception e) {
             }
 
