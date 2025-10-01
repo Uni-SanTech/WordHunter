@@ -155,5 +155,30 @@ public class Queries extends QueriesImpl {
             ex.printStackTrace();
         }
     }
-    //TODO: Construir o método para apagar animal
+
+    //TODO: Construir o método para apagar
+    //um animal específico da tabela (20 min)
+    @Override
+    public void apagarAnimal(Animal animal) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException("O drive do MySQL não está instalado", e);
+        }
+
+        String QUERY = "DELETE FROM animais WHERE id_animal = ?;";
+        System.out.println(QUERY);
+
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASS); PreparedStatement ps = conn.prepareStatement(QUERY, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setInt(1, animal.getId_animal());
+
+            if (ps.executeUpdate() == 0) {
+                throw new SQLException("Remoção falhou! nenhuma linha foi alterada!");
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }

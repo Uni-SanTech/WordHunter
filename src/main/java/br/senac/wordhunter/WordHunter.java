@@ -18,8 +18,10 @@ public class WordHunter {
         //q.inserirAnimal(animal);//Insere animal no banco de dados
         
         //Animal para ser atualizado no banco de dados
-        Animal animal = new Animal(4, "Gato", "Imotep", 35.0, "Preto", 3, 35.0, "Gato Egipcio", "M");
-        q.atualizarAnimal(animal);//Atualiza animal no banco de dados
-        System.out.println(animal);
+        Animal animal2 = new Animal(5, "Gato", "Imotep", 35.0, "Preto", 3, 35.0, "Gato Egipcio", "M");
+        // q.atualizarAnimal(animal);//Atualiza animal no banco de dados
+        
+        q.apagarAnimal(animal2);
+
     }
 }
