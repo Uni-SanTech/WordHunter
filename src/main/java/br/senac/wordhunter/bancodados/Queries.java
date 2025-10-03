@@ -181,14 +181,13 @@ public class Queries extends QueriesImpl {
             ex.printStackTrace();
         }
     }
-    
+
     //TODO: construir um método para buscar um animal específico
     //Dica: a função deve seguir a definição da Interface (QueriesInterface)
     //Entrega: 20H26
-    
     @Override
-    public void buscarAnimal(Animal animal){
-         List<Animal> listOfAnimal = new ArrayList<>();
+    public void buscarAnimal(Animal animal) {
+        List<Animal> listOfAnimal = new ArrayList<>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");//Verifica a existêncian do driver do MySQL
         } catch (ClassNotFoundException e) {
@@ -204,7 +203,7 @@ public class Queries extends QueriesImpl {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     //CRIAÇÃO DIRETA DE OBJETO
-                    
+
                     //1. Captura o valor das colunas do ResultSet e cria um novo objeto Animal usando o Construtor
                     Animal animal2 = new Animal(
                             rs.getInt("id_animal"),
@@ -217,7 +216,7 @@ public class Queries extends QueriesImpl {
                             rs.getString("raca_animal"),
                             rs.getString("sexo_animal")
                     );
-                    
+
                     //CRIAÇÃO DO OBJETO POR PARTES
                     //1. Criando uma classe Animal vazia e sem valores de atributos definidos
 //                    Animal animal3 = new Animal();
@@ -244,13 +243,12 @@ public class Queries extends QueriesImpl {
 //                    animal3.setAltura_animal(altura_animal);
 //                    animal3.setRaca_animal(raca_animal);
 //                    animal3.setSexo_animal(sexo_animal);
-
                     //Adicionando o objeto Animal (já com os valores definidos) à Lista de objetos do tipo Animal
                     listOfAnimal.add(animal2);
                 }
                 System.out.println("Total de animais encontrados = " + listOfAnimal.size());
                 System.out.println("Animal encontrado = " + listOfAnimal.get(0).toString());
-                
+
             } catch (Exception e) {
             }
 
@@ -258,4 +256,5 @@ public class Queries extends QueriesImpl {
             ex.printStackTrace();
         }
     }
+
 }
