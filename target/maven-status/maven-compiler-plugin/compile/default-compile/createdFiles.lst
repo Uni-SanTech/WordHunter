@@ -3,3 +3,4 @@ br\senac\wordhunter\model\Animal.class
 br\senac\wordhunter\bancodados\QueriesImpl.class
 br\senac\wordhunter\WordHunter.class
 br\senac\wordhunter\bancodados\Queries.class
+br\senac\wordhunter\model\Dono.class

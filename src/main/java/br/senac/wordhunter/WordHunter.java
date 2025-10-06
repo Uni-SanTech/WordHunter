@@ -2,6 +2,7 @@ package br.senac.wordhunter;
 
 import br.senac.wordhunter.bancodados.Queries;
 import br.senac.wordhunter.model.Animal;
+import br.senac.wordhunter.model.Dono;
 
 /**
  * GroupId: br.senac Project Name: WordHunter
@@ -11,17 +12,28 @@ import br.senac.wordhunter.model.Animal;
 public class WordHunter {
 
     public static void main(String[] args) {
-        Queries q = new Queries();
+        //Queries q = new Queries();
         //q.cacaPalavra("");
         //Novo objeto criado para inserir no banco de dados
         //Animal animal = new Animal("Gato", "Imotep", 35.0, "Preto", 3, 35.0, "Gato Egipcio", "M");
         //q.inserirAnimal(animal);//Insere animal no banco de dados
         
         //Animal para ser atualizado no banco de dados
-        Animal animal2 = new Animal("Gato", "Imotep", 35.0, "Preto", 3, 35.0, "Gato Egipcio", "M");
+        //Animal animal2 = new Animal("Gato", "Imotep", 35.0, "Preto", 3, 35.0, "Gato Egipcio", "M");
         // q.atualizarAnimal(animal);//Atualiza animal no banco de dados
         
         //q.apagarAnimal(animal2);
-        q.buscarAnimal(animal2);
+        //q.buscarAnimal(animal2);
+        
+        Dono dono = new Dono(
+                1, 
+                "Marcos", 
+                "000.001.002-77", 
+                "Avenida 1",
+                "939876-5432",
+                "marcos@email.com"
+        );
+        dono.setNome_completo("Bryan");
+        System.out.println(dono.getNome_completo());
     }
 }
