@@ -3,6 +3,7 @@ package br.senac.wordhunter;
 import br.senac.wordhunter.bancodados.Queries;
 import br.senac.wordhunter.model.Animal;
 import br.senac.wordhunter.model.Dono;
+import java.util.Map;
 
 /**
  * GroupId: br.senac Project Name: WordHunter
@@ -33,7 +34,21 @@ public class WordHunter {
                 "939876-5432",
                 "marcos@email.com"
         );
+        
         dono.setNome_completo("Bryan");
-        System.out.println(dono.getNome_completo());
+        
+        //Test toJson()  e toMap()
+        String to_json = dono.toJson();
+        Map<String, Object> to_map = dono.toMap();
+        
+        System.out.println("toJson: " + to_json);
+        System.out.println("toMap: " + to_map);
+        
+        //Test fromJson e fromMap()
+        Dono dono_from_map = Dono.fromMap(to_map);
+        Dono dono_from_json = Dono.fromJson(to_json);
+        
+        System.out.println("fromJson: " +dono_from_json.toString());
+        System.out.println("fromMap: " +dono_from_map.toString());
     }
 }
