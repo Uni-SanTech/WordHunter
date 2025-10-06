@@ -2,7 +2,7 @@ package br.senac.wordhunter.model;
 
 public class Dono {
 
-    private Integer id_dono;
+    private Integer id_dono; //integer é tipo um int com "superpoderes"
     private String nome_completo;
     private String cpf;
     private String endereco;
